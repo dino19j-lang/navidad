@@ -1,0 +1,299 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <title>navidad baby</title>
+</head>
+<body>
+    
+<canvas id="myCanvas">
+    <!--El elemento HTML canvas se puede utilizar para dibujar gráficos a través de 
+        secuencias de comandos (por lo general JavaScript ).-->
+</canvas>
+
+<!-- Aquí va todo el código de three.js -->
+<!-- script type="importmap" importa las librerías necesarias para three.js-->
+<script type="importmap">
+{
+  "imports": {
+    "three": "./js/three.module.js",
+    "three/addons/VRButton.js": "./js/VRButton.js"
+    
+  }
+}
+</script>
+<script type="module"> 
+//🗃️🗃️ Mandar llamar a la librería
+
+  
+import * as THREE from 'three';
+import { VRButton } from 'three/addons/VRButton.js';
+
+
+    ///importar
+
+import bota from "./js/bota.js";
+import esfera from "./js/esfera.js";
+import gorro from "./js/gorra.js";
+import regalo from "./js/regalo.js";
+import sonic from "./js/sonic.js";
+import arbol from "./js/arbol.js";
+import casa from "./js/casa.js";
+import snow from "./js/snow.js";
+import arna from "./js/arna.js";
+
+
+//🕹️🕹️ Renderer - Realiza una conexión entre el código y el canvas
+  var renderer = new THREE.WebGLRenderer({canvas: 
+document.getElementById('myCanvas'),antialias: true}); 
+renderer.setPixelRatio(window.decivePixelRatio); 
+renderer.setSize(window.innerWidth, window.innerHeight); 
+renderer.setClearColor(0x85929E); 
+renderer.xr.enabled = true;///////////////////////////////////////////////////////////// Añadir estas Dos lineas
+
+renderer.xr.setReferenceSpaceType( 'local' );/////////////////////////////////////////// Para habilitar el VR 
+
+document.body.appendChild( renderer.domElement );///////////////////////////////////////// Añadir estas Dos lineas 
+
+document.body.appendChild( VRButton.createButton( renderer ) );/////////////////////////// PAra habilitar el boton en el navegador
+
+renderer.xr.addEventListener("sessionstart", () => {
+
+    const session = renderer.xr.getSession();
+    
+    const referenceSpace = renderer.xr.getReferenceSpace();
+
+    const offset = new XRRigidTransform({
+        x: 0,
+        y: -80,
+        z: -300
+    });
+
+    const offsetSpace = referenceSpace.getOffsetReferenceSpace(offset);
+
+    session.requestReferenceSpace("local").then(() => {
+        renderer.xr.setReferenceSpace(offsetSpace);
+    });
+
+});
+
+
+
+// 🎬 Creando nueva escena - Es el espacio donde se colocan los objetos
+    var scene = new THREE.Scene();
+
+//🎥🎥 Agregar una cámara de perspectiva
+  // Configuración de cámara y escenario ######        
+        var camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, .1, 1000);
+        camera.position.set(0, 30, 1000);
+
+
+        var scene =new THREE.Scene(); 
+
+    //Settings de la cámara
+    camera.position.set(0, 30, 1000);
+
+
+//fondo
+ var loader = new THREE.TextureLoader();
+ var bgTexture = loader.load("assets/noce.jpg");
+ scene.background = bgTexture;
+
+// Espacio para colocar los objetos
+//Luces
+    const luz = new THREE.AmbientLight(0xFFFFFF, 1);
+    luz.position.set(0, 0, 30);
+    scene.add(luz);
+
+//Plano
+    var plano = new THREE.BoxGeometry(1200,0.5,1200);
+    var textura1=new THREE.TextureLoader().load("assets/nieve.jpg");
+    var material1=new THREE.MeshLambertMaterial({map:textura1});
+    var mesh1 = new THREE.Mesh(plano,material1);
+    scene.add(mesh1);
+    mesh1.receiveShadow = true;
+    
+
+
+    /////arbol bueno
+const arn1 = arna({x:0,y:0,z:0});
+    scene.add(arn1);
+  arn1.position.set(0,0,0);
+arn1.scale.set(25,30, 25);
+
+////bota
+
+    const bota1 = bota({x:0,y:0,z:0});
+    scene.add(bota1);
+  bota1.position.set(-280,8,100);
+bota1.scale.set(4,4, 4);
+
+////bota2
+
+    const bota2 = bota({x:0,y:0,z:0});
+    scene.add(bota2);
+  bota2.position.set(240,8,170);
+bota2.scale.set(4,4, 4);
+
+
+////esfera1
+
+    const esfera1 = esfera({x:0,y:0,z:0});
+    scene.add(esfera1);
+  esfera1.position.set(-300,45,490);
+esfera1.scale.set(9,9, 9);
+
+///esfera2
+
+    const esfera2 = esfera({x:0,y:0,z:0});
+    scene.add(esfera2);
+  esfera2.position.set(300,45,490);
+esfera2.scale.set(9,9, 9);
+
+
+////regalo
+
+    const regalo1 = regalo({x:0,y:0,z:0});
+    scene.add(regalo1);
+  regalo1.position.set(-190,30,-90);
+regalo1.scale.set(4,4, 4);
+
+
+////regalo2
+
+    const regalo2 = regalo({x:0,y:0,z:0});
+    scene.add(regalo2);
+  regalo2.position.set(190,30,90);
+regalo2.scale.set(5,4, 4);
+
+////regalo3
+
+    const regalo3 = regalo({x:0,y:0,z:0});
+    scene.add(regalo3);
+  regalo3.position.set(0,30,600);
+regalo3.scale.set(5,4, 4);
+////gorro
+
+    const gorro1 = gorro({x:0,y:0,z:0});
+    scene.add(gorro1);
+  gorro1.position.set(200,90,380);
+gorro1.scale.set(2,2, 2);
+
+
+////sonic1
+
+    const sonic1 = sonic({x:0,y:0,z:0});
+    scene.add(sonic1);
+  sonic1.position.set(200,0,380);
+sonic1.scale.set(2,2, 2);
+
+////snow
+
+    const snow1 = snow({x:0,y:0,z:0});
+    scene.add(snow1);
+  snow1.position.set(-200,0,380);
+snow1.scale.set(10,10, 10);
+
+
+////arbol1
+
+    const arbol1 = arbol({x:0,y:0,z:0});
+    scene.add(arbol1);
+  arbol1.position.set(160,90,-290);
+arbol1.scale.set(-15,15, -15);
+
+////arbol2
+
+    const arbol2 = arbol({x:0,y:0,z:0});
+    scene.add(arbol2);
+  arbol2.position.set(290,90,-290);
+arbol2.scale.set(-15,15, -15);
+
+////arbol3
+
+    const arbol3 = arbol({x:0,y:0,z:0});
+    scene.add(arbol3);
+  arbol3.position.set(-290,90,-290);
+arbol3.scale.set(-15,15, -15);
+
+////arbol4
+
+    const arbol4 = arbol({x:0,y:0,z:0});
+    scene.add(arbol4);
+  arbol4.position.set(-140,90,-290);
+arbol4.scale.set(-15,15, -15);
+
+
+////arbol5
+
+    const arbol5 = arbol({x:0,y:0,z:0});
+    scene.add(arbol5);
+  arbol5.position.set(0,90,-290);
+arbol5.scale.set(-15,15, -15);
+
+
+////arbol6
+
+    const arbol6 = arbol({x:0,y:0,z:0});
+    scene.add(arbol6);
+  arbol6.position.set(-450,90,-290);
+arbol6.scale.set(-15,15, -15);
+  
+
+////arbol6
+
+    const arbol7 = arbol({x:0,y:0,z:0});
+    scene.add(arbol7);
+  arbol7.position.set(450,90,-290);
+arbol7.scale.set(-15,15, -15);
+
+////casa1
+
+    const casa1 = casa({x:0,y:0,z:0});
+    scene.add(casa1);
+  casa1.position.set(-370,0,-70);
+casa1.scale.set(-12,12, -12);
+
+casa1.rotation.set(25.15,29, 0);
+
+///casa2
+
+    const casa2 = casa({x:0,y:0,z:0});
+    scene.add(casa2);
+  casa2.position.set(370,0,-70);
+casa2.scale.set(-12,12, -12);
+
+casa2.rotation.set(25.15,34, 0);
+
+
+///casa3
+
+    const casa3 = casa({x:0,y:0,z:0});
+    scene.add(casa3);
+  casa3.position.set(-390,0,220);
+casa3.scale.set(-12,12, -12);
+
+casa3.rotation.set(25.15,61.5, 0);
+
+
+///casa4
+
+    const casa4 = casa({x:0,y:0,z:0});
+    scene.add(casa4);
+  casa4.position.set(390,0,220);
+casa4.scale.set(-12,12, -12);
+
+casa4.rotation.set(25.15,33, 0);
+
+
+//🎰🎰Rendering y animación
+
+   function render (){ 
+renderer.render(scene, camera); 
+requestAnimationFrame(render); 
+} 
+renderer.setAnimationLoop( render ); 
+
+
+</script>
+</body>
+</html>

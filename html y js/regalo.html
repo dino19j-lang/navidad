@@ -1,0 +1,138 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <title>REGALON</title>
+</head>
+<body>
+    
+<canvas id="myCanvas">
+    <!--El elemento HTML canvas se puede utilizar para dibujar gráficos a través de 
+        secuencias de comandos (por lo general JavaScript ).-->
+</canvas>
+
+<!-- Aquí va todo el código de three.js -->
+<!-- script type="importmap" importa las librerías necesarias para three.js-->
+<script type="importmap"> 
+    {
+        "imports":{
+            "three": "./js/three.module.js",
+            "three/OrbitControls": "./js/OrbitControls.js" 
+        }
+}
+</script>
+<script type="module"> 
+//🗃️🗃️ Mandar llamar a la librería
+    import * as THREE from 'three'; 
+    import {OrbitControls} from 'three/OrbitControls';
+    console.log(OrbitControls);
+
+//🕹️🕹️ Renderer - Realiza una conexión entre el código y el canvas
+    var renderer = new THREE.WebGLRenderer({
+    canvas: document.getElementById('myCanvas'), antialias: true,
+    });
+    renderer.setPixelRatio(window.decivePixelRatio);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0x70707C);
+
+
+// 🎬 Creando nueva escena - Es el espacio donde se colocan los objetos
+    var scene = new THREE.Scene();
+
+//🎥🎥 Agregar una cámara de perspectiva
+    var camera = new THREE.PerspectiveCamera(70,window.innerWidth / window.innerHeight,0.1,2000
+      );
+    scene.add(camera);
+
+    //Settings de la cámara
+    camera.position.set(0, 4, 80);
+
+    // Añadiendo los OrbitControls
+    var controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+
+
+// Espacio para colocar los objetos
+//Luces
+    const luz = new THREE.AmbientLight(0xFFFFFF, 1);
+    luz.position.set(0, 0, 30);
+    scene.add(luz);
+
+
+  ////REGALO 
+
+  var geometry04 = new THREE.BoxGeometry(12,12,12,4,12,20);
+
+var materyal05 = new THREE.MeshBasicMaterial({
+        color: 0xF53F18, side: THREE.DoubleSide, 
+     }) 
+
+ var mesh08=new THREE.Mesh(geometry04,materyal05);
+scene.add(mesh08);
+mesh08.position.set(0,0,0);
+
+///// envoltura
+var cintaVerGeo = new THREE.BoxGeometry(1, 13, 0.5);
+var cintaMat = new THREE.MeshBasicMaterial({
+  color: 0xFFD700, 
+  side: THREE.DoubleSide,
+});
+
+var cintaVerticalGeo = new THREE.BoxGeometry(1, 13, 0.5);
+var cintaMat = new THREE.MeshBasicMaterial({
+  color: 0xFFD700, 
+  side: THREE.DoubleSide,
+});
+
+// CIRCULO 
+var moñoCentroGeo = new THREE.SphereGeometry(2, 16, 16);
+var moñoCentro = new THREE.Mesh(moñoCentroGeo, cintaMat);
+scene.add(moñoCentro);
+moñoCentro.position.set(0, 6, 0);
+
+// Lazos 
+var lazoIzqGeo = new THREE.TorusGeometry(2, 1.4, 5, 10,3 );
+var lazoIzq = new THREE.Mesh(lazoIzqGeo, cintaMat);
+scene.add(lazoIzq);
+lazoIzq.position.set(-2, 5.5, 0);
+lazoIzq.rotation.set(1.57, 43, 1.57);
+
+var lazoDerGeo = new THREE.TorusGeometry(2, 1.4, 5, 10,3);
+var lazoDer = new THREE.Mesh(lazoDerGeo, cintaMat);
+scene.add(lazoDer);
+lazoDer.position.set(2, 5.5, 0);
+lazoDer.rotation.set(1.57, 26, -1.57);
+
+
+////FRANJA chida
+
+var franjag = new THREE.BoxGeometry(2, 12.5, 13);
+var franja1= new THREE.Mesh(franjag, cintaMat);
+scene.add(franja1);
+franja1.position.set(0, 0, 0);
+
+var franja2g = new THREE.BoxGeometry(13, 12.5, 2);
+var franja2 = new THREE.Mesh(franja2g, cintaMat);
+scene.add(franja2);
+franja2.position.set(0, 0, 0);
+
+
+
+
+
+//🎰🎰Rendering y animación
+    requestAnimationFrame(render);
+    function render() {
+
+    //🪄🪄 Animación - 
+
+    //🎮🎮Actualización del OrbitControls para generar la suavidad de movimiento
+    controls.update();
+
+    //Llamado para renderizar y volver a llamar a la misma función (render)
+    renderer.render(scene, camera);
+    requestAnimationFrame(render);
+    }
+</script>
+</body>
+</html>

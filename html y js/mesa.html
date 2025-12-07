@@ -1,0 +1,263 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <title>arbol chido </title>
+</head>
+<body>
+    
+<canvas id="myCanvas">
+    <!--El elemento HTML canvas se puede utilizar para dibujar gráficos a través de 
+        secuencias de comandos (por lo general JavaScript ).-->
+</canvas>
+
+<!-- Aquí va todo el código de three.js -->
+<!-- script type="importmap" importa las librerías necesarias para three.js-->
+<script type="importmap"> 
+    {
+        "imports":{
+            "three": "./js/three.module.js",
+            "three/OrbitControls": "./js/OrbitControls.js" 
+        }
+}
+</script>
+<script type="module"> 
+//🗃️🗃️ Mandar llamar a la librería
+    import * as THREE from 'three'; 
+    import {OrbitControls} from 'three/OrbitControls';
+    console.log(OrbitControls);
+
+//🕹️🕹️ Renderer - Realiza una conexión entre el código y el canvas
+    var renderer = new THREE.WebGLRenderer({
+    canvas: document.getElementById('myCanvas'), antialias: true,
+    });
+    renderer.setPixelRatio(window.decivePixelRatio);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0x70707C);
+
+
+// 🎬 Creando nueva escena - Es el espacio donde se colocan los objetos
+    var scene = new THREE.Scene();
+
+//🎥🎥 Agregar una cámara de perspectiva
+    var camera = new THREE.PerspectiveCamera(70,window.innerWidth / window.innerHeight,0.1,2000
+      );
+    scene.add(camera);
+
+    //Settings de la cámara
+    camera.position.set(0, 4, 80);
+
+    // Añadiendo los OrbitControls
+    var controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+
+
+// Espacio para colocar los objetos
+//Luces
+    const luz = new THREE.AmbientLight(0xFFFFFF, 1);
+    luz.position.set(0, 0, 30);
+    scene.add(luz);
+
+////arbol chido
+
+///// TRONCO
+var troncoGeo = new THREE.CylinderGeometry(1.5, 1.5, 4, 16);
+var troncoMat = new THREE.MeshBasicMaterial({
+  color: 0x8B4513,
+  side: THREE.DoubleSide,
+});
+var tronco = new THREE.Mesh(troncoGeo, troncoMat);
+scene.add(tronco);
+tronco.position.set(0, 2, 0);
+
+///// NIVEL 1 
+var nivel1Geo = new THREE.ConeGeometry(7, 7, 32);
+var nivelMat = new THREE.MeshBasicMaterial({
+  color: 0x0D7A0D,
+  side: THREE.DoubleSide,
+});
+var nivel1 = new THREE.Mesh(nivel1Geo, nivelMat);
+scene.add(nivel1);
+nivel1.position.set(0, 6, 0);
+
+///// NIVEL 2 
+var nivel2Geo = new THREE.ConeGeometry(6, 6, 32);
+var nivel2 = new THREE.Mesh(nivel2Geo, nivelMat);
+scene.add(nivel2);
+nivel2.position.set(0, 10, 0);
+
+///// NIVEL 3 
+var nivel3Geo = new THREE.ConeGeometry(5, 5, 32);
+var nivel3 = new THREE.Mesh(nivel3Geo, nivelMat);
+scene.add(nivel3);
+nivel3.position.set(0, 13.5, 0);
+
+///// CINTA 
+var cintaMat = new THREE.MeshBasicMaterial({
+  color: 0xFFD700, 
+  side: THREE.DoubleSide
+});
+
+
+var cintaGeo1 = new THREE.TorusGeometry(5.5, 0.45, 8, 40, 9);
+var cinta1 = new THREE.Mesh(cintaGeo1, cintaMat);
+scene.add(cinta1);
+cinta1.rotation.set(23.5, 75.3, 0);
+cinta1.position.set(0, 5, 0);
+
+
+var cintaGeo2 = new THREE.TorusGeometry(5, 0.45, 8, 40, 9);
+var cinta2 = new THREE.Mesh(cintaGeo2, cintaMat);
+scene.add(cinta2);
+cinta2.rotation.set(23.5, 75.3, 0);
+cinta2.position.set(0, 8.5, 0);
+
+var cintaGeo3 = new THREE.TorusGeometry(4.6, 0.45, 8, 40, 9);
+var cinta3 = new THREE.Mesh(cintaGeo3, cintaMat);
+scene.add(cinta3);
+cinta3.rotation.set(23.5, 75.3, 0);
+cinta3.position.set(0, 12, 0);
+
+////// ESFERA DE NAVIDAD
+
+// esfera
+var esferag = new THREE.SphereGeometry(5, 32, 32);
+var esferam = new THREE.MeshBasicMaterial({
+  color: 0x0264F0, 
+  side: THREE.DoubleSide,
+});
+
+var esferam1 = new THREE.MeshBasicMaterial({
+  color: 0xF02929, 
+  side: THREE.DoubleSide,
+});
+var esferam2 = new THREE.MeshBasicMaterial({
+  color: 0x5BD900, 
+  side: THREE.DoubleSide,
+});
+var esferam3 = new THREE.MeshBasicMaterial({
+  color: 0xEBDF3D, 
+  side: THREE.DoubleSide,
+});
+
+var esferan = new THREE.Mesh(esferag, esferam);
+///scene.add(esfera);
+esferan.position.set(0, 0, 0);
+
+var esferan2 = new THREE.Mesh(esferag, esferam1);
+///scene.add(esfera);
+esferan.position.set(0, 0, 0);
+
+var esferan3 = new THREE.Mesh(esferag, esferam2);
+///scene.add(esfera);
+esferan.position.set(0, 0, 0);
+
+var esferan4 = new THREE.Mesh(esferag, esferam3);
+///scene.add(esfera);
+esferan.position.set(0, 0, 0);
+
+
+// Tapa 
+var tapag = new THREE.CylinderGeometry(1.2, 1.2, 1.5, 16);
+var tapamat = new THREE.MeshBasicMaterial({
+  color: 0xD4AF37, 
+  side: THREE.DoubleSide,
+});
+var tapa = new THREE.Mesh(tapag, tapamat);
+//scene.add(tapa);
+tapa.position.set(0, 5.8, 0);
+
+// Arrito
+var arogeo = new THREE.TorusGeometry(0.8, 0.15, 10, 30, 6.28);
+var aromat = new THREE.MeshBasicMaterial({
+  color: 0xFFD700,
+  side: THREE.DoubleSide,
+});
+var aro = new THREE.Mesh(arogeo, aromat);
+//scene.add(aro);
+aro.position.set(0, 6.6, 0);
+
+
+
+
+var esfera1 = new THREE.Group();
+    esfera1.add(aro,tapa,esferan);
+    esfera1.position.set(-4.5,5.6,0)
+    scene.add(esfera1);
+esfera1.scale.set(-0.2,0.2, 0.2);
+
+
+var esfera2 = new THREE.Group();
+    esfera2.add(aro,tapa,esferan2);
+    esfera2.position.set(3.5,10,0)
+    scene.add(esfera2);
+esfera2.scale.set(-0.2,0.2, 0.2);
+
+
+
+var esfera3 = new THREE.Group();
+    esfera3.add(aro,tapa,esferan3);
+    esfera3.position.set(-4.5,10,0)
+    scene.add(esfera3);
+esfera3.scale.set(-0.2,0.2, 0.2);
+
+
+var esfera4 = new THREE.Group();
+    esfera4.add(aro,tapa,esferan4);
+    esfera4.position.set(0,1.5,5)
+    scene.add(esfera4);
+esfera4.scale.set(-0.2,0.2, 0.2);
+
+var az1 = esfera1.clone();
+    scene.add(az1);
+    az1.position.set(0,1.5,-5)
+
+
+var az2 = esfera1.clone();
+    scene.add(az2);
+    az2.position.set(0,10,-4)
+
+    
+var ve1 = esfera3.clone();
+    scene.add(ve1);
+    ve1.position.set(3.5,1.5,0)
+
+    var ve2 = esfera3.clone();
+    scene.add(ve2);
+    ve2.position.set(0,6,5)
+
+ var ro1 = esfera2.clone();
+    scene.add(ro1);
+    ro1.position.set(0,6,-4)
+
+var ro2 = esfera2.clone();
+    scene.add(ro2);
+    ro2.position.set(-4,1.5,0)
+
+var ama1 = esfera4.clone();
+    scene.add(ama1);
+    ama1.position.set(0,10, 4.3)
+
+var ama2 = esfera4.clone();
+    scene.add(ama2);
+    ama2.position.set(5.5,6,0)
+
+
+
+
+//🎰🎰Rendering y animación
+    requestAnimationFrame(render);
+    function render() {
+
+    //🪄🪄 Animación - 
+
+    //🎮🎮Actualización del OrbitControls para generar la suavidad de movimiento
+    controls.update();
+
+    //Llamado para renderizar y volver a llamar a la misma función (render)
+    renderer.render(scene, camera);
+    requestAnimationFrame(render);
+    }
+</script>
+</body>
+</html>
